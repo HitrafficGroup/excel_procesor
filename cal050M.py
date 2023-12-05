@@ -14,9 +14,17 @@ def ordenar_diccionario(total_data):
     ordenado_por_year = sorted(ordenado_por_dia, key=lambda x: x['YEAR'])
     return ordenado_por_year
 #
-columnas  = ['B','D','E','G','H','I','J','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL']
-encabezados = ['CODIGO_UNICO_NACIONAL','GEO-X','GEO-Y','PROVINCIA','CANTON','SUBESTACION','ALIMENTADOR','F-F','F-N','FECHA_INICIO','HORA_INICIO','FECHA_FINAL','HORA_FINAL','N_REGISTROS','FA_V','FA_PST','FA_VTHD','FB_V','FB_PST','FB_VTHD','FC_V','FC_PST','FC_VTHD','DESEQUILIBRIO','FA5DV6','FA6DV7','FA7DV8','FA8DV9','FA9DV10','FA10DV11','FA11DV12','FA12DV13','FA13DV14','FA14DV15','FA15DV','FB5DV6','FB6DV7','FB7DV8','FB8DV9','FB9DV10','FB10DV11','FB11DV12','FB12DV13','FB13DV14','FB14DV15','FB15DV','FC5DV6','FC6DV7','FC7DV8','FC8DV9','FC9DV10','FC10DV11','FC11DV12','FC12DV13','FC13DV14','FC14DV15','FC15DV']
-index_data = {'columnas':columnas,'encabezados':encabezados}
+encabezados = {'B': 'CODIGO_UNICO_NACIONAL', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON',
+                'I': 'SUBESTACION', 'J': 'ALIMENTADOR', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO',
+                'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'U': 'FA_PST', 'V': 'FA_VTHD',
+                'W': 'FB_V', 'X': 'FB_PST', 'Y': 'FB_VTHD', 'Z': 'FC_V', 'AA': 'FC_PST', 'AB': 'FC_VTHD', 'AC': 'DESEQUILIBRIO',
+                'AD': 'FA5DV6', 'AE': 'FA6DV7', 'AF': 'FA7DV8', 'AG': 'FA8DV9', 'AH': 'FA9DV10', 'AI': 'FA10DV11',
+                'AJ': 'FA11DV12', 'AK': 'FA12DV13', 'AL': 'FA13DV14', 'AM': 'FA14DV15', 'AN': 'FA15DV',
+                'AP': 'FB5DV6', 'AQ': 'FB6DV7', 'AR': 'FB7DV8', 'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12',
+                'AW': 'FB12DV13', 'AX': 'FB13DV14', 'AY': 'FB14DV15', 'AZ': 'FB15DV', 'BB': 'FC5DV6', 'BC': 'FC6DV7',
+                'BD': 'FC7DV8', 'BE': 'FC8DV9', 'BF': 'FC9DV10', 'BG': 'FC10DV11', 'BH': 'FC11DV12',
+                'BI': 'FC12DV13', 'BJ': 'FC13DV14', 'BK': 'FC14DV15', 'BL': 'FC15DV'}
+
 #esta variable contendra la base de datos
 data_base = []
 def process_sheet(path,file_dir):
@@ -36,54 +44,54 @@ def process_sheet(path,file_dir):
     #la variable woorbook contiene el excel con los datos
     sheet_target = workbook[target]
     start_row = 12
-    if len(index_data['columnas']) == len(index_data['encabezados']):
-        for fila in range(start_row,100):
-            if sheet_target[f'{index_data["columnas"][0]}{fila}'].value == None:
-                break
-            values = []
-            for column in index_data['columnas']:
-                cell_name = f'{column}{fila}'
-                current_cell = sheet_target[cell_name].value
-                values.append(current_cell)
-            empty_dict = {}
-            empty_dict['YEAR'] = sheet_target['D3'].value
-            fecha  = sheet_target['D4'].value
-            fecha_aux  = fecha.split()
-            empty_dict['DIA'] = fecha_aux[0]
-            empty_dict['MES'] = fecha_aux[1]
-            empty_dict['FILE'] = file_dir
-            second_dict = dict(zip(index_data['encabezados'], values))
-            ##  empieza formato de la fecha
-            fecha_aux = str(second_dict['FECHA_INICIO'])
-            fecha_formated = '0-0-0'
-            if len(fecha_aux) > 10:
-                year = fecha_aux[0:4]
-                mes = fecha_aux[5:7]
-                dia = fecha_aux[8:10]
-                fecha_formated = f'{dia}-{mes}-{year}'
-            else:
-                dia = fecha_aux[0:2]
-                mes = fecha_aux[3:5]
-                year = fecha_aux[6:]
-                fecha_formated = f'{dia}-{mes}-{year}'
-            second_dict['FECHA_INICIO'] = fecha_formated
-            fecha_aux = str(second_dict['FECHA_FINAL'])
-            fecha_formated = '0-0-0'
-            if len(fecha_aux) > 10:
-                year = fecha_aux[0:4]
-                mes = fecha_aux[5:7]
-                dia = fecha_aux[8:10]
-                fecha_formated = f'{dia}-{mes}-{year}'
-            else:
-                dia = fecha_aux[0:2]
-                mes = fecha_aux[3:5]
-                year = fecha_aux[6:]
-                fecha_formated = f'{dia}-{mes}-{year}'
-            second_dict['FECHA_FINAL'] = fecha_formated
-            ## desde aqui se deja de dar formato a la fecha
-            empty_dict.update(second_dict)
-            data_captured.append(empty_dict)
-        return data_captured
+
+    for fila in range(start_row,100):
+        if sheet_target[f'B{fila}'].value == None:
+            break
+        dict_aux = {}
+        for clave, valor in encabezados.items():
+            cell_name = f'{clave}{fila}'
+            current_cell = sheet_target[cell_name].value
+            dict_aux[valor] = current_cell
+        empty_dict = {}
+        empty_dict['YEAR'] = sheet_target['D3'].value
+        fecha  = sheet_target['D4'].value
+        fecha_aux  = fecha.split()
+        empty_dict['DIA'] = fecha_aux[0]
+        empty_dict['MES'] = fecha_aux[1]
+        empty_dict['FILE'] = file_dir
+
+        ##  empieza formato de la fecha
+        fecha_aux = str(dict_aux['FECHA_INICIO'])
+        fecha_formated = '0-0-0'
+        if len(fecha_aux) > 10:
+            year = fecha_aux[0:4]
+            mes = fecha_aux[5:7]
+            dia = fecha_aux[8:10]
+            fecha_formated = f'{dia}-{mes}-{year}'
+        else:
+            dia = fecha_aux[0:2]
+            mes = fecha_aux[3:5]
+            year = fecha_aux[6:]
+            fecha_formated = f'{dia}-{mes}-{year}'
+        dict_aux['FECHA_INICIO'] = fecha_formated
+        fecha_aux = str(dict_aux['FECHA_FINAL'])
+        fecha_formated = '0-0-0'
+        if len(fecha_aux) > 10:
+            year = fecha_aux[0:4]
+            mes = fecha_aux[5:7]
+            dia = fecha_aux[8:10]
+            fecha_formated = f'{dia}-{mes}-{year}'
+        else:
+            dia = fecha_aux[0:2]
+            mes = fecha_aux[3:5]
+            year = fecha_aux[6:]
+            fecha_formated = f'{dia}-{mes}-{year}'
+        dict_aux['FECHA_FINAL'] = fecha_formated
+        ## desde aqui se deja de dar formato a la fecha
+        empty_dict.update(dict_aux)
+        data_captured.append(empty_dict)
+    return data_captured
 
 def calcular050M():
     # primero revisamos la cantidad de excels que estan en el directorio actual
@@ -99,9 +107,9 @@ def calcular050M():
     for archivo in archivos:
         if archivo[-5:] == '.xlsx':
             listado_archivos.append(archivo)
-    if len(index_data['columnas']) == len(index_data['encabezados']):
-        for path_target in listado_archivos:
-            data_base.extend(process_sheet(directorio,path_target))
-        data_ordenada = ordenar_diccionario(data_base)
-        df = pd.DataFrame(data_ordenada)
-        df.to_excel('resultados/cal_050M_bd.xlsx', index=False)
+
+    for path_target in listado_archivos:
+        data_base.extend(process_sheet(directorio,path_target))
+    data_ordenada = ordenar_diccionario(data_base)
+    df = pd.DataFrame(data_ordenada)
+    df.to_excel('resultados/cal_050M_bd.xlsx', index=False)

@@ -47,7 +47,6 @@ def process_sheet(path,file_dir):
     for fila in range(start_row,100):
         if sheet_target[f'B{fila}'].value == None:
             break
-        values = []
         dict_aux = {}
         for clave, valor in encabezados.items():
             cell_name = f'{clave}{fila}'
