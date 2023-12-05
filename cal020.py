@@ -14,8 +14,15 @@ def ordenar_diccionario(total_data):
     ordenado_por_year = sorted(ordenado_por_dia, key=lambda x: x['YEAR'])
     return ordenado_por_year
 
-columnas  = ['B','D','E','G','H','M','N','O','P','Q','R','S','T','W','Z','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL']
-encabezados = ['SUB-ESTACION','GEO-X','GEO-Y','PRIVINCIA','CANTON','F-F','F-N','FECHA_INICIO','HORA_INICIO','FECHA_FINAL','HORA_FINAL','N_REGISTROS','FA_V','FB_V','FC_V','FA6DV7','FA7DV8','FA8DV9','FA9DV10','FA10DV11','FA11DV12','FA12DV13','FA13DV14','FA14DV15','FA15DV','FB6DV7','FB7DV8','FB8DV9','FB9DV10','FB10DV11','FB11DV12','FB12DV13','FB13DV14','FB14DV15','FB15DV','FC6DV7','FC7DV8','FC8DV9','FC9DV10','FC10DV11','FC11DV12','FC12DV13','FC13DV14','FC14DV15','FC15DV']
+columnas  = ['B','D','E','G','H','M','N','O','P','Q','R','S','T','W','Z','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BN']
+encabezados = ['SUB-ESTACION','GEO-X','GEO-Y','PRIVINCIA','CANTON','F-F','F-N','FECHA_INICIO','HORA_INICIO','FECHA_FINAL','HORA_FINAL','N_REGISTROS','FA_V','FB_V','FC_V','FA6DV7','FA7DV8','FA8DV9','FA9DV10','FA10DV11','FA11DV12','FA12DV13','FA13DV14','FA14DV15','FA15DV','FB6DV7','FB7DV8','FB8DV9','FB9DV10','FB10DV11','FB11DV12','FB12DV13','FB13DV14','FB14DV15','FB15DV','FC6DV7','FC7DV8','FC8DV9','FC9DV10','FC10DV11','FC11DV12','FC12DV13','FC13DV14','FC14DV15','FC15DV','OBSERVACIONES']
+encabezados = {'B': 'SUB-ESTACION', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PRIVINCIA', 'H': 'CANTON', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 
+               'P': 'HORA_INICIO', 'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'W': 'FB_V', 'Z': 'FC_V', 'AE': 
+               'FA6DV7', 'AF': 'FA7DV8', 'AG': 'FA8DV9', 'AH': 'FA9DV10', 'AI': 'FA10DV11', 'AJ': 'FA11DV12', 'AK': 'FA12DV13', 'AL': 'FA13DV14', 
+               'AM': 'FA14DV15', 'AN': 'FA15DV', 'AQ': 'FB6DV7', 'AR': 'FB7DV8', 'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12', 
+               'AW': 'FB12DV13', 'AX': 'FB13DV14', 'AY': 'FB14DV15', 'AZ': 'FB15DV', 'BC': 'FC6DV7', 'BD': 'FC7DV8', 'BE': 'FC8DV9', 'BF': 'FC9DV10',
+                 'BG': 'FC10DV11', 'BH': 'FC11DV12', 'BI': 'FC12DV13', 'BJ': 'FC13DV14', 'BK': 'FC14DV15', 'BL': 'FC15DV', 'BN': 'OBSERVACIONES'}
+
 index_data = {'columnas':columnas,'encabezados':encabezados}
 #esta variable contendra la base de datos
 data_base = []
