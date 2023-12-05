@@ -9,8 +9,9 @@ def ordenar_diccionario(total_data):
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
                 data['MES'] = valor
-    ordenado_por_dia = sorted(total_data, key=lambda x: x['MES'])
-    ordenado_por_year = sorted(ordenado_por_dia, key=lambda x: x['YEAR'])
+    ordenado_por_dia = sorted(total_data, key=lambda x: x['DIA'])         
+    ordenado_por_mes = sorted(ordenado_por_dia, key=lambda x: x['MES'])
+    ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
 
 #
@@ -67,9 +68,9 @@ def process_sheet(path,file_dir):
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
         fecha_aux  = fecha.split()
-        empty_dict['DIA'] = fecha_aux[0]
+        
         empty_dict['MES'] = fecha_aux[1]
-        empty_dict['FILE'] = file_dir
+       
         ##  empieza formato de la fecha
         fecha_aux = str(dict_aux['FECHA_INICIO'])
         fecha_formated = '0-0-0'
@@ -84,6 +85,8 @@ def process_sheet(path,file_dir):
             year = fecha_aux[6:]
             fecha_formated = f'{dia}-{mes}-{year}'
         dict_aux['FECHA_INICIO'] = fecha_formated
+        empty_dict['DIA'] = fecha_formated[0:2]
+        empty_dict['FILE'] = file_dir
         fecha_aux = str(dict_aux['FECHA_FINAL'])
         fecha_formated = '0-0-0'
         if len(fecha_aux) > 10:
@@ -120,6 +123,7 @@ def calcular040():
 
     for path_target in listado_archivos:
         data_base.extend(process_sheet(directorio,path_target))
+        print(path_target)
     data_ordenada = ordenar_diccionario(data_base)
     df = pd.DataFrame(data_ordenada)
     df.to_excel('resultados/cal_040_bd.xlsx', index=False)

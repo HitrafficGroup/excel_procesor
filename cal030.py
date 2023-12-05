@@ -10,24 +10,28 @@ def ordenar_diccionario(total_data):
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
                 data['MES'] = valor
-    ordenado_por_dia = sorted(total_data, key=lambda x: x['MES'])
-    ordenado_por_year = sorted(ordenado_por_dia, key=lambda x: x['YEAR'])
+    ordenado_por_dia = sorted(total_data, key=lambda x: x['DIA'])         
+    ordenado_por_mes = sorted(ordenado_por_dia, key=lambda x: x['MES'])
+    ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
-#
-encabezados = {'B': 'CODIGO', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON', 'I': 'SUBESTACION', 'J': 'ALIMENTADOR', 
-               'L': 'NUM DE FASES', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO', 'Q': 'FECHA_FINAL', 
-               'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'U': 'FA_PST', 'V': 'FA_VTHD', 'W': 'FB_V', 'X': 'FB_PST',
-                 'Y': 'FB_VTHD', 'Z': 'FC_V', 'AA': 'FC_PST', 'AB': 'FC_VTHD', 'AC': 'DESEQUILIBRIO', 'AG': 'FA_8D9',
-                   'AH': 'FA_9D10', 'AI': 'FA_10D11', 'AJ': 'FA_11D12', 'AK': 'FA_12D13', 'AL': 'FA_13D14', 'AM': 'FA_14D15', 
-                   'AN': 'FA_15D', 'AS': 'FB_8D9', 'AT': 'FB_9D10', 'AU': 'FB_10D11', 'AV': 'FB_11D12', 'AW': 'FB_12D13',
-                     'AX': 'FB_13D14', 'AY': 'FB_14D15', 'AZ': 'FB_15D', 'BE': 'FC_8D9', 'BF': 'FC_9D10', 'BG': 'FC_10D11', 
-                     'BH': 'FC_11D12', 'BI': 'FC_12D13', 'BJ': 'FC_13D14', 'BK': 'FC_14D15', 'BL': 'FC_D15', 'BN': 'OBSERVACIONES'}
+##### 
+encabezados = { 
+                'B': 'CODIGO', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON', 'I': 'SUBESTACION',
+                'J': 'ALIMENTADOR', 'L': 'NUM DE FASES', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO',
+                'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'U': 'FA_PST', 'V': 'FA_VTHD',
+                'W': 'FB_V', 'X': 'FB_PST','Y': 'FB_VTHD', 'Z': 'FC_V', 'AA': 'FC_PST', 'AB': 'FC_VTHD', 'AC': 'DESEQUILIBRIO',
+                'AG': 'FA_8D9','AH': 'FA_9D10', 'AI': 'FA_10D11', 'AJ': 'FA_11D12', 'AK': 'FA_12D13', 'AL': 'FA_13D14',
+                'AM': 'FA_14D15','AN': 'FA_15D', 'AS': 'FB_8D9', 'AT': 'FB_9D10', 'AU': 'FB_10D11', 'AV': 'FB_11D12',
+                'AW': 'FB_12D13','AX': 'FB_13D14', 'AY': 'FB_14D15', 'AZ': 'FB_15D', 'BE': 'FC_8D9', 'BF': 'FC_9D10',
+                'BG': 'FC_10D11', 'BH': 'FC_11D12', 'BI': 'FC_12D13', 'BJ': 'FC_13D14', 'BK': 'FC_14D15', 'BL': 'FC_D15',
+                'BN': 'OBSERVACIONES'
+                }
 
 
 #esta variable contendra la base de datos
 data_base = []
 def process_sheet(path,file_dir):
-    workbook = openpyxl.load_workbook(path+'/'+file_dir)
+    workbook = openpyxl.load_workbook(path+'/'+file_dir,data_only=True)
     lista_de_hojas = workbook.sheetnames
     #esta variable alamacera toda la informacion recopilada de los excels
     data_captured = []
@@ -50,15 +54,62 @@ def process_sheet(path,file_dir):
         dict_aux = {}
         for clave, valor in encabezados.items():
             cell_name = f'{clave}{fila}'
-            current_cell = sheet_target[cell_name].value
-            dict_aux[valor] = current_cell
+            if cell_name == f'T{fila}':
+                aux_data = round(sheet_target[cell_name].value*100)
+                dict_aux[valor] = aux_data
+            elif cell_name == f'U{fila}':
+                aux_data = round(sheet_target[cell_name].value*100,2)
+                dict_aux[valor] = aux_data
+            elif cell_name == f'V{fila}':
+                aux_data = round(sheet_target[cell_name].value*100,2)
+                dict_aux[valor] = aux_data
+            elif cell_name == f'W{fila}':
+                val = sheet_target[cell_name].value
+                if val == None:
+                    dict_aux[valor] = val
+                else:
+                    aux_data = round(val*100,2)
+                    dict_aux[valor] = aux_data
+            elif cell_name == f'X{fila}':
+                val = sheet_target[cell_name].value
+                if val == None:
+                    dict_aux[valor] = val
+                else:
+                    aux_data = round(val*100,2)
+                    dict_aux[valor] = aux_data
+            elif cell_name == f'Y{fila}':
+                val = sheet_target[cell_name].value
+                if val == None:
+                    dict_aux[valor] = val
+                else:
+                    aux_data = round(val*100,2)
+                    dict_aux[valor] = aux_data
+            elif cell_name == f'Z{fila}':
+                val = sheet_target[cell_name].value
+                if val == None:
+                    dict_aux[valor] = val
+                else:
+                    aux_data = round(val*100,2)
+                    dict_aux[valor] = aux_data
+            elif cell_name == f'AA{fila}':
+                val = sheet_target[cell_name].value
+                if val == None:
+                    dict_aux[valor] = val
+                else:
+                    aux_data = round(val*100,2)
+                    dict_aux[valor] = aux_data
+            elif cell_name == f'AC{fila}':
+                aux_data = round(sheet_target[cell_name].value*100,2)
+                dict_aux[valor] = aux_data
+            else:
+                current_cell = sheet_target[cell_name].value
+                dict_aux[valor] = current_cell
         empty_dict = {}
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
         fecha_aux  = fecha.split()
-        empty_dict['DIA'] = fecha_aux[0]
         empty_dict['MES'] = fecha_aux[1]
-        empty_dict['FILE'] = file_dir
+
  
             ##  empieza formato de la fecha
         fecha_aux = str(dict_aux['FECHA_INICIO'])
@@ -74,6 +125,8 @@ def process_sheet(path,file_dir):
             year = fecha_aux[6:]
             fecha_formated = f'{dia}-{mes}-{year}'
         dict_aux['FECHA_INICIO'] = fecha_formated
+        empty_dict['DIA'] = fecha_formated[0:2]
+        empty_dict['FILE'] = file_dir
         fecha_aux = str(dict_aux['FECHA_FINAL'])
         fecha_formated = '0-0-0'
         if len(fecha_aux) > 10:
@@ -109,6 +162,7 @@ def calcular030():
 
     for path_target in listado_archivos:
         data_base.extend(process_sheet(directorio,path_target))
+        print(path_target)
     data_ordenada = ordenar_diccionario(data_base)
     df = pd.DataFrame(data_ordenada)
     df.to_excel('resultados/cal_030_bd.xlsx', index=False)

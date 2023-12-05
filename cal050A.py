@@ -10,8 +10,9 @@ def ordenar_diccionario(total_data):
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
                 data['MES'] = valor
-    ordenado_por_dia = sorted(total_data, key=lambda x: x['MES'])
-    ordenado_por_year = sorted(ordenado_por_dia, key=lambda x: x['YEAR'])
+    ordenado_por_dia = sorted(total_data, key=lambda x: x['DIA'])         
+    ordenado_por_mes = sorted(ordenado_por_dia, key=lambda x: x['MES'])
+    ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
 #
 encabezados = {
@@ -23,7 +24,8 @@ encabezados = {
             'AK': 'FA12DV13', 'AL': 'FA13DV14', 'AM': 'FA14DV15', 'AN': 'FA15DV', 'AP': 'FB5DV6', 'AQ': 'FB6DV7', 'AR': 'FB7DV8',
             'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12', 'AW': 'FB12DV13', 'AX': 'FB13DV14',
             'AY': 'FB14DV15', 'AZ': 'FB15DV', 'BB': 'FC5DV6', 'BC': 'FC6DV7', 'BD': 'FC7DV8', 'BE': 'FC8DV9', 'BF': 'FC9DV10',
-            'BG': 'FC10DV11', 'BH': 'FC11DV12', 'BI': 'FC12DV13', 'BJ': 'FC13DV14', 'BK': 'FC14DV15', 'BL': 'FC15DV'
+            'BG': 'FC10DV11', 'BH': 'FC11DV12', 'BI': 'FC12DV13', 'BJ': 'FC13DV14', 'BK': 'FC14DV15', 'BL': 'FC15DV',
+            'BN': 'OBSERVACIONES'
             }
 
 #esta variable contendra la base de datos
@@ -57,9 +59,8 @@ def process_sheet(path,file_dir):
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
         fecha_aux  = fecha.split()
-        empty_dict['DIA'] = fecha_aux[0]
         empty_dict['MES'] = fecha_aux[1]
-        empty_dict['FILE'] = file_dir
+
     
         ##  empieza formato de la fecha
         fecha_aux = str(dict_aux['FECHA_INICIO'])
@@ -75,6 +76,8 @@ def process_sheet(path,file_dir):
             year = fecha_aux[6:]
             fecha_formated = f'{dia}-{mes}-{year}'
         dict_aux['FECHA_INICIO'] = fecha_formated
+        empty_dict['DIA'] = fecha_formated[0:2]
+        empty_dict['FILE'] = file_dir
         fecha_aux = str(dict_aux['FECHA_FINAL'])
         fecha_formated = '0-0-0'
         if len(fecha_aux) > 10:
