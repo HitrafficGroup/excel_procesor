@@ -23,12 +23,12 @@ encabezados = {'B': 'CODIGO_UNICO_NACIONAL', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GE
                 'AN': 'FA15DV', 'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12', 
                 'AW': 'FB12DV13', 'AX': 'FB13DV14', 'AY': 'FB14DV15', 'AZ': 'FB15DV', 'BE': 'FC8DV9', 
                 'BF': 'FC9DV10', 'BG': 'FC10DV11', 'BH': 'FC11DV12', 'BI': 'FC12DV13', 'BJ': 'FC13DV14', 
-                'BK': 'FC14DV15', 'BL': 'FC15DV'}
+                'BK': 'FC14DV15', 'BL': 'FC15DV','BM':'TOTAL','BN':'OBSERVACIONES'}
 
 #esta variable contendra la base de datos
 data_base = []
 def process_sheet(path,file_dir):
-    workbook = openpyxl.load_workbook(path+'/'+file_dir)
+    workbook = openpyxl.load_workbook(path+'/'+file_dir,data_only=True)
     lista_de_hojas = workbook.sheetnames
     #esta variable alamacera toda la informacion recopilada de los excels
     data_captured = []
@@ -51,8 +51,18 @@ def process_sheet(path,file_dir):
         dict_aux = {}
         for clave, valor in encabezados.items():
             cell_name = f'{clave}{fila}'
-            current_cell = sheet_target[cell_name].value
-            dict_aux[valor] = current_cell
+            if cell_name == f'T{fila}':
+                aux_data = round(sheet_target[cell_name].value*100)
+                dict_aux[valor] = aux_data
+            elif cell_name == f'W{fila}':
+                aux_data = round(sheet_target[cell_name].value*100)
+                dict_aux[valor] = aux_data
+            elif cell_name == f'Z{fila}':
+                aux_data = round(sheet_target[cell_name].value*100)
+                dict_aux[valor] = aux_data
+            else:
+                current_cell = sheet_target[cell_name].value
+                dict_aux[valor] = current_cell
         empty_dict = {}
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
