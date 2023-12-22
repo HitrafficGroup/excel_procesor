@@ -93,11 +93,11 @@ def process_sheet(path,file_dir):
         data_captured.append(empty_dict)
     return data_captured
 
-def calcular020():
+def calcular020(path_source,path_final):
     # primero revisamos la cantidad de excels que estan en el directorio actual
     # Obtiene el directorio actual
     # Ruta del directorio que quieres listar
-    directorio = 'C:/Users/usuar/Documents/Python Scripts/excel_procesador/020'
+    directorio = path_source
 
     # Obtener la lista de archivos en el directorio
     archivos = os.listdir(directorio)
@@ -114,6 +114,6 @@ def calcular020():
         print(path_target)
     data_ordenada = ordenar_diccionario(data_base)
     df = pd.DataFrame(data_ordenada)
-    df.to_excel('resultados/cal_020_bd.xlsx', index=False)
+    df.to_excel(path_final, index=False)
 
 
