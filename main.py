@@ -18,12 +18,12 @@ from cal030 import calcular030
 from cal020 import calcular020
 from cal040 import calcular040
 from cal050A import calcular050A
-
+from calcular_porcentaje import calcularPorcent
 path_cal20 = ''
 path_cal30 = ''
 path_cal40 = ''
 path_cal50 = ''
-
+path_consolided = ''
 def selectPath(_condition):
     global path_cal20
     global path_cal30
@@ -91,7 +91,34 @@ def procesarDb():
     print(name_file)
    
    
+def seleccionarExcel():
+    global path_consolided
+    fname = QFileDialog.getOpenFileName()
+    ruta = fname[0]
+    nombre_archivo = os.path.basename(ruta)
+    if fname[0][-5:] == ".xlsx":
+        path_consolided = fname[0]
+        window.txtPorcent.setText(nombre_archivo)
 
+def generarPorcentajedeMuestra():
+    date = datetime.now()
+    name_file = f'porcentaje f {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
+    options = QFileDialog.Options()
+    file_name, _ = QFileDialog.getSaveFileName(None, "Guardar Excel", f"{name_file}.xlsx", "Excel Files (*.xlsx);;All Files (*)", options=options)
+    global path_consolided
+    aux_porcentaje = 0.8
+    if window.porcentaje.text() != '':
+        aux_porcentaje = window.porcentaje.text()
+    else:
+        aux_porcentaje = 0.8
+    
+    try:
+        aux_porcentaje = float(aux_porcentaje)
+    except:
+        aux_porcentaje = 0.8
+    print(aux_porcentaje)
+    calcularPorcent(path_consolided,aux_porcentaje,file_name)
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -108,6 +135,8 @@ if __name__ == "__main__":
     window.btn40.clicked.connect(lambda: selectPath(3))
     window.btn50.clicked.connect(lambda: selectPath(4))
     window.process.clicked.connect(lambda: procesarDb())
+    window.consolidado.clicked.connect(lambda: seleccionarExcel())
+    window.btnporcent.clicked.connect(lambda: generarPorcentajedeMuestra())
 
     ui_file.close()
     if not window:

@@ -1,7 +1,7 @@
 import openpyxl
 import pandas as pd
 import os
-
+from datetime import datetime
 
 #funcion para ordenar diccionarios
 datos_meses = {'Enero':1,'Febrero':2,'Marzo':3,'Abril':4,'Mayo':5,'Junio':6,'Julio':7,'Agosto':8,'Septiembre':9,'Octubre':10,'Noviembre':11,'Diciembre':12}
@@ -99,16 +99,22 @@ def process_sheet(path,file_dir):
                     aux_data = round(val*100,2)
                     dict_aux[valor] = aux_data
             elif cell_name == f'AC{fila}':
-                aux_data = round(sheet_target[cell_name].value*100,2)
-                dict_aux[valor] = aux_data
+                print(f'fila procesando: {fila}')
+                if sheet_target[cell_name].value == None:
+                    dict_aux[valor] = ''
+                else:
+                    aux_data = round(sheet_target[cell_name].value*100,2)
+                    dict_aux[valor] = aux_data
             else:
                 current_cell = sheet_target[cell_name].value
                 dict_aux[valor] = current_cell
         empty_dict = {}
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
-        fecha_aux  = fecha.split()
-        empty_dict['MES'] = fecha_aux[1]
+        print(fecha)
+        fecha_aux = datetime.strptime(str(fecha), "%Y-%m-%d %H:%M:%S")
+        print(fecha_aux)
+        empty_dict['MES'] = fecha_aux.month
 
  
             ##  empieza formato de la fecha
@@ -161,8 +167,8 @@ def calcular030(path_source,path_final):
             listado_archivos.append(archivo)
 
     for path_target in listado_archivos:
-        data_base.extend(process_sheet(directorio,path_target))
         print(path_target)
+        data_base.extend(process_sheet(directorio,path_target))
     data_ordenada = ordenar_diccionario(data_base)
     df = pd.DataFrame(data_ordenada)
     df.to_excel(path_final, index=False)

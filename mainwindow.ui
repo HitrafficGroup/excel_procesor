@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>396</height>
+    <width>426</width>
+    <height>502</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,47 +43,6 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="9" column="1" colspan="4">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="1" colspan="3">
-            <widget class="QLabel" name="path_20">
-             <property name="text">
-              <string>C:/</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1" colspan="4">
-            <widget class="QPushButton" name="process">
-             <property name="text">
-              <string>GENERAR DB</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1" colspan="3">
-            <widget class="QLabel" name="path_50">
-             <property name="text">
-              <string>C:/</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QPushButton" name="btn40">
-             <property name="text">
-              <string>CARPETA CAL40</string>
-             </property>
-            </widget>
-           </item>
            <item row="4" column="4">
             <widget class="QPushButton" name="btn50">
              <property name="text">
@@ -91,62 +50,10 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1" colspan="3">
-            <widget class="QLabel" name="path_40">
+           <item row="1" column="1" colspan="3">
+            <widget class="QLabel" name="path_20">
              <property name="text">
               <string>C:/</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1" colspan="4">
-            <widget class="QLabel" name="label">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>GENERADOR DE BASE DE DATOS</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1" colspan="3">
-            <widget class="QLabel" name="path_30">
-             <property name="text">
-              <string>C:/</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QPushButton" name="btn30">
-             <property name="text">
-              <string>CARPETA CAL30</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1" colspan="4">
-            <widget class="QLabel" name="label_2">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>90</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>90</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Recomendaciones: colocar todos los archivos pertenecientes al mismo cal en una misma  carpeta.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -162,6 +69,19 @@
               <string>CARPETA CAL20</string>
              </property>
             </widget>
+           </item>
+           <item row="13" column="1" colspan="4">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="6" column="1" colspan="4">
             <widget class="QGroupBox" name="groupBox">
@@ -211,6 +131,134 @@
                </layout>
               </item>
              </layout>
+            </widget>
+           </item>
+           <item row="12" column="1" colspan="4">
+            <widget class="QLabel" name="label_2">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Recomendaciones: colocar todos los archivos pertenecientes al mismo cal en una misma  carpeta.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1" colspan="2">
+            <widget class="QLabel" name="label_3">
+             <property name="font">
+              <font>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Generacion del 8%</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QPushButton" name="btn40">
+             <property name="text">
+              <string>CARPETA CAL40</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="3" colspan="2">
+            <widget class="QPushButton" name="consolidado">
+             <property name="text">
+              <string>CARGAR CONSOLIDADO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1" colspan="3">
+            <widget class="QLabel" name="path_50">
+             <property name="text">
+              <string>C:/</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QPushButton" name="btn30">
+             <property name="text">
+              <string>CARPETA CAL30</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1" colspan="4">
+            <widget class="QPushButton" name="process">
+             <property name="text">
+              <string>GENERAR DB</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="4">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>GENERADOR DE BASE DE DATOS</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1" colspan="2">
+            <widget class="QLabel" name="txtPorcent">
+             <property name="text">
+              <string>C:/</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="3">
+            <widget class="QLabel" name="path_30">
+             <property name="text">
+              <string>C:/</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1" colspan="3">
+            <widget class="QLabel" name="path_40">
+             <property name="text">
+              <string>C:/</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="3" colspan="2">
+            <widget class="QPushButton" name="btnporcent">
+             <property name="text">
+              <string>GENERAR PORCENTAJE</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1" colspan="2">
+            <widget class="QLineEdit" name="porcentaje"/>
+           </item>
+           <item row="10" column="1" colspan="3">
+            <widget class="QLabel" name="label_5">
+             <property name="font">
+              <font>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ingrese el porcentaje en decimales con punto:</string>
+             </property>
             </widget>
            </item>
           </layout>

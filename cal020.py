@@ -93,6 +93,8 @@ def process_sheet(path,file_dir):
         data_captured.append(empty_dict)
     return data_captured
 
+
+
 def calcular020(path_source,path_final):
     # primero revisamos la cantidad de excels que estan en el directorio actual
     # Obtiene el directorio actual
