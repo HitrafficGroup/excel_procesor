@@ -111,9 +111,7 @@ def process_sheet(path,file_dir):
         empty_dict = {}
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
-        print(fecha)
         fecha_aux = datetime.strptime(str(fecha), "%Y-%m-%d %H:%M:%S")
-        print(fecha_aux)
         empty_dict['MES'] = fecha_aux.month
 
  

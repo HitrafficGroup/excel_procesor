@@ -111,12 +111,11 @@ def generarPorcentajedeMuestra():
         aux_porcentaje = window.porcentaje.text()
     else:
         aux_porcentaje = 0.8
-    
     try:
-        aux_porcentaje = float(aux_porcentaje)
+        aux_porcentaje = round(int(aux_porcentaje)/100,2)
     except:
         aux_porcentaje = 0.8
-    print(aux_porcentaje)
+    print('porcentaje total',aux_porcentaje)
     calcularPorcent(path_consolided,aux_porcentaje,file_name)
     
 

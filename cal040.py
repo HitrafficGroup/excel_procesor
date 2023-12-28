@@ -1,7 +1,7 @@
 import openpyxl
 import pandas as pd
 import os
-
+from datetime import datetime
 
 #funcion para ordenar diccionarios
 def ordenar_diccionario(total_data):
@@ -67,9 +67,8 @@ def process_sheet(path,file_dir):
         empty_dict = {}
         empty_dict['YEAR'] = sheet_target['D3'].value
         fecha  = sheet_target['D4'].value
-        fecha_aux  = fecha.split()
-        
-        empty_dict['MES'] = fecha_aux[1]
+        fecha_aux = datetime.strptime(str(fecha), "%Y-%m-%d %H:%M:%S")
+        empty_dict['MES'] = fecha_aux.month
        
         ##  empieza formato de la fecha
         fecha_aux = str(dict_aux['FECHA_INICIO'])
