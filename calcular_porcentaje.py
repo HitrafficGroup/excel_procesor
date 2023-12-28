@@ -1,22 +1,31 @@
 import pandas as pd
-import random
-import math
 
-def calcularPorcent(ruta_excel,porcent,final_path):
+def calcularPorcent(ruta_excel,porcent,final_path,condition):
     df = pd.read_excel(ruta_excel)
     # procesamos el dataframe
     valores_unicos_lista = df['YEAR'].unique().tolist()
     meses_unicos = []
+    
     for year in valores_unicos_lista:
         c1 = df['YEAR'] == year
         datos_seleccionados = df[c1]
         meses_unicos.append({'meses':datos_seleccionados['MES'].unique().tolist(),'year':year})
     longitud_meses = 0
+    
     for lon in meses_unicos:
         longitud_meses += len(lon['meses'])
     
+    
     size = df.shape[0]
-    total_porcent = round(int(size)*porcent)
+    total_porcent = 24
+    if condition == 1:
+        total_porcent = round(int(size)*porcent)
+    else:
+        N_poblation = size
+        error = 0.05 
+        confianza = 1.96 
+        total_porcent = (N_poblation *(confianza**2)*0.5*0.5)/((error**2)*(N_poblation-1)+(confianza**2)*0.5*0.5)
+
     ctd_mes = round(total_porcent/longitud_meses)
     muestra_generada = []
 
@@ -32,7 +41,7 @@ def calcularPorcent(ruta_excel,porcent,final_path):
             
             muestra_generada.extend(aux)
     
-    
+        
 
     # for i in meses_unicos:
     #     for x in i:
@@ -41,11 +50,7 @@ def calcularPorcent(ruta_excel,porcent,final_path):
     # #generamos un consolidado
     # diccionario_resultante = df.to_dict(orient='records')
     # size = len(diccionario_resultante)
-    # N_poblation = size
-    # error = 0.05 #error del 5%
-    # confianza = 1.96 #confianza del 95%
-    # muestral_size = (N_poblation *(confianza**2)*0.5*0.5)/((error**2)*(N_poblation-1)+(confianza**2)*0.5*0.5)
-    # porcent_total = round(size*aux_porcent)
+   
     # print(f'el numero total de datos es: {N_poblation}')
     # print(f'el total de la muestra con una confiabilidad del 95 porciento es: {round(muestral_size)}')
     # print(f'el 8 porciento de la cantidad total de datos es: {porcent_total}')

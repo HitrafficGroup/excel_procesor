@@ -17,7 +17,7 @@ from datetime import datetime
 from cal030 import calcular030
 from cal020 import calcular020
 from cal040 import calcular040
-from cal050A import calcular050A
+from cal050 import calcular50
 from calcular_porcentaje import calcularPorcent
 path_cal20 = ''
 path_cal30 = ''
@@ -86,7 +86,7 @@ def procesarDb():
         name_file = f' cal50 {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getSaveFileName(None, "Guardar Excel", f"{name_file}.xlsx", "Excel Files (*.xlsx);;All Files (*)", options=options)
-        calcular050A(path_cal50,file_name)
+        calcular50(path_cal50,file_name)
         print(file_name)
     print(name_file)
    
