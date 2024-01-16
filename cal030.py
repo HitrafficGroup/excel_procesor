@@ -15,7 +15,10 @@ def ordenar_diccionario(total_data):
     ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
 ##### 
-encabezados = { 
+
+
+def process_sheet(path,file_dir):
+    encabezados = { 
                 'B': 'CODIGO', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON', 'I': 'SUBESTACION',
                 'J': 'ALIMENTADOR', 'L': 'NUM DE FASES', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO',
                 'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'U': 'FA_PST', 'V': 'FA_VTHD',
@@ -27,10 +30,6 @@ encabezados = {
                 'BN': 'OBSERVACIONES'
                 }
 
-
-#esta variable contendra la base de datos
-data_base = []
-def process_sheet(path,file_dir):
     workbook = openpyxl.load_workbook(path+'/'+file_dir,data_only=True)
     lista_de_hojas = workbook.sheetnames
     #esta variable alamacera toda la informacion recopilada de los excels
@@ -150,12 +149,11 @@ def process_sheet(path,file_dir):
     return data_captured
 
 def calcular030(path_source,path_final):
-    # primero revisamos la cantidad de excels que estan en el directorio actual
-    # Obtiene el directorio actual
-    # Ruta del directorio que quieres listar
+    data_base = []
+
     directorio = path_source
 
-    # Obtener la lista de archivos en el directorio
+
     archivos = os.listdir(directorio)
 
     # Imprime la lista de archivos
@@ -170,7 +168,7 @@ def calcular030(path_source,path_final):
     data_ordenada = ordenar_diccionario(data_base)
     df = pd.DataFrame(data_ordenada)
     df.to_excel(path_final, index=False)
-
+    return data_ordenada
 
 
 

@@ -3,9 +3,10 @@ import pandas as pd
 import os
 
 
-datos_meses = {'Enero':1,'Febrero':2,'Marzo':3,'Abril':4,'Mayo':5,'Junio':6,'Julio':7,'Agosto':8,'Septiembre':9,'Octubre':10,'Noviembre':11,'Diciembre':12}
+
 #funcion para ordenar diccionarios
 def ordenar_diccionario(total_data):
+    datos_meses = {'Enero':1,'Febrero':2,'Marzo':3,'Abril':4,'Mayo':5,'Junio':6,'Julio':7,'Agosto':8,'Septiembre':9,'Octubre':10,'Noviembre':11,'Diciembre':12}
     for data in total_data:
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
@@ -15,18 +16,17 @@ def ordenar_diccionario(total_data):
     ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
 
-encabezados = {'B': 'SUB-ESTACION', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PRIVINCIA', 'H': 'CANTON', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 
-               'P': 'HORA_INICIO', 'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'W': 'FB_V', 'Z': 'FC_V', 'AE': 
+
+
+
+def process_sheet(path,file_dir):
+    encabezados = {'B': 'Subestación / Barra', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'Provincia', 'H': 'Cantón', 'M': 'F-F', 'N': 'F-N', 'O': 'Fecha Inicio', 
+               'P': 'Hora Inicio', 'Q': 'Fecha Final', 'R': 'Hora Final', 'S': '# Registros', 'T': 'Fase A V', 'W': 'Fase B V', 'Z': 'Fase C V', 'AE': 
                'FA6DV7', 'AF': 'FA7DV8', 'AG': 'FA8DV9', 'AH': 'FA9DV10', 'AI': 'FA10DV11', 'AJ': 'FA11DV12', 'AK': 'FA12DV13', 'AL': 'FA13DV14', 
                'AM': 'FA14DV15', 'AN': 'FA15DV', 'AQ': 'FB6DV7', 'AR': 'FB7DV8', 'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12', 
                'AW': 'FB12DV13', 'AX': 'FB13DV14', 'AY': 'FB14DV15', 'AZ': 'FB15DV', 'BC': 'FC6DV7', 'BD': 'FC7DV8', 'BE': 'FC8DV9', 'BF': 'FC9DV10',
                  'BG': 'FC10DV11', 'BH': 'FC11DV12', 'BI': 'FC12DV13', 'BJ': 'FC13DV14', 'BK': 'FC14DV15', 'BL': 'FC15DV', 'BN': 'OBSERVACIONES'}
-
-
-#esta variable contendra la base de datos
-data_base = []
-def process_sheet(path,file_dir):
-    workbook = openpyxl.load_workbook(path+'/'+file_dir)
+    workbook = openpyxl.load_workbook(path+'/'+file_dir,data_only=True)
     lista_de_hojas = workbook.sheetnames
     #esta variable alamacera toda la informacion recopilada de los excels
     data_captured = []
@@ -60,7 +60,7 @@ def process_sheet(path,file_dir):
 
 
         ##  empieza formato de la fecha
-        fecha_aux = str(dict_aux['FECHA_INICIO'])
+        fecha_aux = str(dict_aux['Fecha Inicio'])
         fecha_formated = '0-0-0'
         if len(fecha_aux) > 10:
             year = fecha_aux[0:4]
@@ -72,10 +72,10 @@ def process_sheet(path,file_dir):
             mes = fecha_aux[3:5]
             year = fecha_aux[6:]
             fecha_formated = f'{dia}-{mes}-{year}'
-        dict_aux['FECHA_INICIO'] = fecha_formated
+        dict_aux['Fecha Inicio'] = fecha_formated
         empty_dict['DIA'] = fecha_formated[0:2]
         empty_dict['FILE'] = file_dir
-        fecha_aux = str(dict_aux['FECHA_FINAL'])
+        fecha_aux = str(dict_aux['Fecha Final'])
         fecha_formated = '0-0-0'
         if len(fecha_aux) > 10:
             year = fecha_aux[0:4]
@@ -87,15 +87,15 @@ def process_sheet(path,file_dir):
             mes = fecha_aux[3:5]
             year = fecha_aux[6:]
             fecha_formated = f'{dia}-{mes}-{year}'
-        dict_aux['FECHA_FINAL'] = fecha_formated
+        dict_aux['Fecha Final'] = fecha_formated
             ## desde aqui se deja de dar formato a la fecha
         empty_dict.update(dict_aux)
         data_captured.append(empty_dict)
     return data_captured
 
 
-
 def calcular020(path_source,path_final):
+    data_base = []
     # primero revisamos la cantidad de excels que estan en el directorio actual
     # Obtiene el directorio actual
     # Ruta del directorio que quieres listar
@@ -110,12 +110,11 @@ def calcular020(path_source,path_final):
         if archivo[-5:] == '.xlsx':
             listado_archivos.append(archivo)
             
-
     for path_target in listado_archivos:
         data_base.extend(process_sheet(directorio,path_target))
-        print(path_target)
+    
     data_ordenada = ordenar_diccionario(data_base)
+
     df = pd.DataFrame(data_ordenada)
     df.to_excel(path_final, index=False)
-
-
+    return data_ordenada

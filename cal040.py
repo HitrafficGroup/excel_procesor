@@ -126,3 +126,4 @@ def calcular040(path_source,path_final):
     data_ordenada = ordenar_diccionario(data_base)
     df = pd.DataFrame(data_ordenada)
     df.to_excel(path_final, index=False)
+    return data_ordenada
