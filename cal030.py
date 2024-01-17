@@ -19,7 +19,7 @@ def ordenar_diccionario(total_data):
 
 def process_sheet(path,file_dir):
     encabezados = { 
-                'B': 'CODIGO', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON', 'I': 'SUBESTACION',
+                'B': 'CODIGO', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y','F': 'GEO-Z', 'G': 'PROVINCIA', 'H': 'CANTON', 'I': 'SUBESTACION',
                 'J': 'ALIMENTADOR', 'L': 'NUM DE FASES', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO',
                 'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'U': 'FA_PST', 'V': 'FA_VTHD',
                 'W': 'FB_V', 'X': 'FB_PST','Y': 'FB_VTHD', 'Z': 'FC_V', 'AA': 'FC_PST', 'AB': 'FC_VTHD', 'AC': 'DESEQUILIBRIO',

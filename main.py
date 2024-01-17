@@ -60,6 +60,7 @@ def procesarDb():
     option20 = window.radio20.isChecked()
     option30 = window.radio30.isChecked()
     option40 = window.radio40.isChecked()
+    option50 = window.radio50.isChecked()
     date = datetime.now()
     name_file = ''
     if option20:
@@ -80,12 +81,12 @@ def procesarDb():
         file_name, _ = QFileDialog.getSaveFileName(None, "Guardar Excel", f"{name_file}.xlsx", "Excel Files (*.xlsx);;All Files (*)", options=options)
         data_cal40 = calcular040(path_cal40,file_name)
 
-    else:
+    elif option50:
         name_file = f' cal50 {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getSaveFileName(None, "Guardar Excel", f"{name_file}.xlsx", "Excel Files (*.xlsx);;All Files (*)", options=options)
         data_cal50 = calcular50(path_cal50,file_name)
-  
+    window.btnporcent.setEnabled(True)
 def seleccionarExcel():
     global path_consolided
     fname = QFileDialog.getOpenFileName()
@@ -98,25 +99,42 @@ def seleccionarExcel():
 def generarPorcentajedeMuestra():
     date = datetime.now()
     porcent = window.porcentaje.text()
+    op1 = window.op1.isChecked()
     op2 = window.op2.isChecked()
+    op3 = window.op3.isChecked()
     option20 = window.radio20.isChecked()
     option30 = window.radio30.isChecked()
     option40 = window.radio40.isChecked()
+    option50 = window.radio50.isChecked()
+  
     name_file = f'porcentaje {porcent}% {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
+    if option20:
+        option_cal = 20
+        data_analisys = data_cal20
+        name_file = f'porcentaje cal20 {porcent}% {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
+    elif option30:
+        option_cal = 30
+        data_analisys = data_cal30
+        name_file = f'porcentaje cal30 {porcent}% {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
+    elif option40:
+        option_cal = 40
+        data_analisys = data_cal40
+        name_file = f'porcentaje cal40 {porcent}% {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
+    elif option50:
+        option_cal = 50
+        data_analisys = data_cal50
+        name_file = f'porcentaje cal50 {porcent}% {date.day}-{date.month}-{date.year} {date.hour}-{date.minute}-{date.second}'
+    
     options = QFileDialog.Options()
     file_name, _ = QFileDialog.getSaveFileName(None, "Guardar Excel", f"{name_file}.xlsx", "Excel Files (*.xlsx);;All Files (*)", options=options)
     global path_consolided
     aux_porcentaje = 0.8
-    if option20:
-        data_analisys = data_cal20
-    elif option30:
-        data_analisys = data_cal30
-    elif option40:
-        data_analisys = data_cal40
-    else:
-        data_analisys = data_cal50
-
-    if op2:
+    print(data_analisys[0])
+    if op1:
+        calcularPorcent(data_analisys,aux_porcentaje,file_name,1,option_cal)
+    elif op2:
+        calcularPorcent(data_analisys,aux_porcentaje,file_name,2,option_cal)
+    elif op3:
         if window.porcentaje.text() != '':
             aux_porcentaje = window.porcentaje.text()
             try:
@@ -126,9 +144,8 @@ def generarPorcentajedeMuestra():
                 aux_porcentaje = 0.8
         else:
             aux_porcentaje = 0.8
-        calcularPorcent(data_analisys,aux_porcentaje,file_name,1)
-    else:
-        calcularPorcent(data_analisys,aux_porcentaje,file_name,2)
+        calcularPorcent(data_analisys,aux_porcentaje,file_name,3,option_cal)
+    
     
    
 
@@ -138,26 +155,27 @@ def detectarOpcion(op):
     global data_cal30
     global data_cal40
     global data_cal50
+    
     if op == 1:
-        if len(data_cal20)==0:
-            window.btnporcent.setEnabled(False)
-        else:
+        if len(data_cal20)!=0:
             window.btnporcent.setEnabled(True)
-    if op == 2:
-        if len(data_cal30)==0:
-            window.btnporcent.setEnabled(False)
         else:
-            window.btnporcent.setEnabled(True)
-    if op == 3:
-        if len(data_cal40)==0:
             window.btnporcent.setEnabled(False)
-        else:
+    elif op == 2:
+        if len(data_cal30)!=0:
             window.btnporcent.setEnabled(True)
-    else:
-        if len(data_cal50)==0:
+        else:
             window.btnporcent.setEnabled(False)
-        else:
+    elif op == 3:
+        if len(data_cal40)!=0:
             window.btnporcent.setEnabled(True)
+        else:
+            window.btnporcent.setEnabled(False)
+    elif op == 4:
+        if len(data_cal50)!=0:
+            window.btnporcent.setEnabled(True)
+        else:
+            window.btnporcent.setEnabled(False)
 
 
 if __name__ == "__main__":
