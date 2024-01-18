@@ -10,13 +10,13 @@ def ordenar_diccionario(total_data):
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
                 data['MES'] = valor
-    ordenado_por_dia = sorted(total_data, key=lambda x: x['DIA'])         
+    ordenado_por_dia = sorted(total_data, key=lambda x: x['Fila'])         
     ordenado_por_mes = sorted(ordenado_por_dia, key=lambda x: x['MES'])
     ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
 #
 encabezados = {
-            'B': 'CODIGO_UNICO_NACIONAL', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON',
+            'A': 'Fila','B': 'CODIGO_UNICO_NACIONAL', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA', 'H': 'CANTON',
             'I': 'SUBESTACION', 'J': 'ALIMENTADOR', 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO',
             'Q': 'FECHA_FINAL', 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'U': 'FA_PST', 'V': 'FA_VTHD',
             'W': 'FB_V', 'X': 'FB_PST', 'Y': 'FB_VTHD', 'Z': 'FC_V', 'AA': 'FC_PST', 'AB': 'FC_VTHD', 'AC': 'DESEQUILIBRIO',
@@ -31,7 +31,7 @@ encabezados = {
 #esta variable contendra la base de datos
 data_base = []
 def process_sheet(path,file_dir):
-    workbook = openpyxl.load_workbook(path+'/'+file_dir)
+    workbook = openpyxl.load_workbook(path+'/'+file_dir,data_only=True)
     lista_de_hojas = workbook.sheetnames
     #esta variable alamacera toda la informacion recopilada de los excels
     data_captured = []

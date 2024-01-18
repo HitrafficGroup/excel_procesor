@@ -9,14 +9,15 @@ def ordenar_diccionario(total_data):
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
                 data['MES'] = valor
-    ordenado_por_dia = sorted(total_data, key=lambda x: x['DIA'])         
+    ordenado_por_dia = sorted(total_data, key=lambda x: x['Fila'])         
     ordenado_por_mes = sorted(ordenado_por_dia, key=lambda x: x['MES'])
     ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
 
 #
 datos_meses = {'Enero':1,'Febrero':2,'Marzo':3,'Abril':4,'Mayo':5,'Junio':6,'Julio':7,'Agosto':8,'Septiembre':9,'Octubre':10,'Noviembre':11,'Diciembre':12}
-encabezados = {'B': 'CODIGO_UNICO_NACIONAL', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA',
+encabezados = {
+                'A': 'Fila','B': 'CODIGO_UNICO_NACIONAL', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'PROVINCIA',
                 'H': 'CANTON', 'I': 'SUBESTACION', 'J': 'ALIMENTADOR', 'K': 'TRANSFORMADOR', 'L': 'NUM_FASES',
                 'M': 'F-F', 'N': 'F-N', 'O': 'FECHA_INICIO', 'P': 'HORA_INICIO', 'Q': 'FECHA_FINAL',
                 'R': 'HORA_FINAL', 'S': 'N_REGISTROS', 'T': 'FA_V', 'W': 'FB_V', 'Z': 'FC_V', 'AG': 'FA8DV9',
@@ -24,7 +25,8 @@ encabezados = {'B': 'CODIGO_UNICO_NACIONAL', 'C': 'TIPO', 'D': 'GEO-X', 'E': 'GE
                 'AN': 'FA15DV', 'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12', 
                 'AW': 'FB12DV13', 'AX': 'FB13DV14', 'AY': 'FB14DV15', 'AZ': 'FB15DV', 'BE': 'FC8DV9', 
                 'BF': 'FC9DV10', 'BG': 'FC10DV11', 'BH': 'FC11DV12', 'BI': 'FC12DV13', 'BJ': 'FC13DV14', 
-                'BK': 'FC14DV15', 'BL': 'FC15DV','BM':'TOTAL','BN':'OBSERVACIONES'}
+                'BK': 'FC14DV15', 'BL': 'FC15DV','BM':'TOTAL','BN':'OBSERVACIONES'
+                }
 
 #esta variable contendra la base de datos
 data_base = []

@@ -11,7 +11,7 @@ def ordenar_diccionario(total_data):
         for clave, valor in datos_meses.items():
             if data['MES'] == clave:
                 data['MES'] = valor
-    ordenado_por_dia = sorted(total_data, key=lambda x: x['DIA'])         
+    ordenado_por_dia = sorted(total_data, key=lambda x: x['Fila'])         
     ordenado_por_mes = sorted(ordenado_por_dia, key=lambda x: x['MES'])
     ordenado_por_year = sorted(ordenado_por_mes, key=lambda x: x['YEAR'])
     return ordenado_por_year
@@ -20,7 +20,7 @@ def ordenar_diccionario(total_data):
 
 
 def process_sheet(path,file_dir):
-    encabezados = {'B': 'Subestación / Barra', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'Provincia', 'H': 'Cantón', 'M': 'F-F', 'N': 'F-N', 'O': 'Fecha Inicio', 
+    encabezados = {'A': 'Fila','B': 'Subestación / Barra', 'D': 'GEO-X', 'E': 'GEO-Y', 'G': 'Provincia', 'H': 'Cantón', 'M': 'F-F', 'N': 'F-N', 'O': 'Fecha Inicio', 
                'P': 'Hora Inicio', 'Q': 'Fecha Final', 'R': 'Hora Final', 'S': '# Registros', 'T': 'Fase A V', 'W': 'Fase B V', 'Z': 'Fase C V', 'AE': 
                'FA6DV7', 'AF': 'FA7DV8', 'AG': 'FA8DV9', 'AH': 'FA9DV10', 'AI': 'FA10DV11', 'AJ': 'FA11DV12', 'AK': 'FA12DV13', 'AL': 'FA13DV14', 
                'AM': 'FA14DV15', 'AN': 'FA15DV', 'AQ': 'FB6DV7', 'AR': 'FB7DV8', 'AS': 'FB8DV9', 'AT': 'FB9DV10', 'AU': 'FB10DV11', 'AV': 'FB11DV12', 
